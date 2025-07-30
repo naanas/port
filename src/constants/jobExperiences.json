@@ -1,0 +1,26 @@
+[
+  {
+    "id": "0",
+    "title": "Full-stack Developer",
+    "company": "Dinas Ketahanan Pangan Kabupaten Malang",
+    "description": "Bertanggung jawab pada posisi programmer, dengan tugas pembuatan aplikasi validasi bantuan sembako pangan untuk masyarakat desa yang terdampak pandemi covid-19 berbasis web. Achievement: Selesai atau Lulus dengan kategori skor A. Skills: MySQL, Laravel.",
+    "timePeriod": "May 2020 - Aug 2020",
+    "img": "images/ibg.png" 
+  },
+  {
+    "id": "1",
+    "title": "Full-stack Developer",
+    "company": "Freelance",
+    "description": "This web application, 'One Lotus PT', is meticulously developed using the robust Laravel framework and PHP, providing a comprehensive solution for UMKM in the physiotherapy sector. It functions as a specialized medical record system, designed to streamline the management of patient data. The core functionality revolves around recording detailed customer treatment information, including consultation notes, therapy progress, and historical visit data. The primary objective of this comprehensive data recapitulation is to empower therapists with easy access to patient history, enabling them to make more accurate diagnoses and tailor treatment plans effectively based on a thorough understanding of past examinations and conditions.",
+    "timePeriod": "November 2022 - January 2024",
+    "img": "images/ibg.png"
+  },
+  {
+    "id": "2",
+    "title": "Frontend Mobile & Web",
+    "company": "Freelance",
+    "description": "This Android application, '5R Tracker', is developed using JavaScript with the robust React Native framework, making it a powerful and cross-platform mobile solution. Designed as a dedicated reporting system, its core functionality is to streamline the collection and submission of 5R operational data directly from the field. The app provides an intuitive interface for users to effortlessly log observations, track compliance, and generate comprehensive reports pertaining to 5R (Ringkas, Rapi, Resik, Rawat, Rajin) principles. By leveraging React Native, the application ensures a consistent and high-performance experience on Android devices, facilitating efficient data capture and immediate insights for operational management.",
+    "timePeriod": "May 2025 - Jun 2025",
+    "img": "images/ibg.png"
+  }
+]
