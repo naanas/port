@@ -34,7 +34,7 @@ export default function Home() {
         className="text-center mb-4"
       >
         <h1 className="text-5xl font-bold text-darkDesert mb-2">Hi, I am Annas Anuraga.</h1>
-        <h2 className="text-2xl font-semibold text-tealDesert mt-2 mb-4">A IT Business Analyst & Frontend Frelancer.</h2>
+        <h2 className="text-2xl font-semibold text-tealDesert mt-2 mb-4">A IT Business Analyst & Frontend Freelancer.</h2>
         <p className="text-xl text-gray-700">At present, I am striving to continuously grow and make a meaningful contribution to technology industry. I believe that technology is a driver of change, and I am enthusiastic about continually learning, innovating, and collaborating with fellow professionals to tackle complex challenges and create sustainable solutions.
 </p>
       </animated.header>
