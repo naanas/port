@@ -23,10 +23,12 @@
     "title": "5R Tracker Apps",
     "description": "This Android application, '5R Tracker', is developed using JavaScript with the robust React Native framework, making it a powerful and cross-platform mobile solution. Designed as a dedicated reporting system, its core functionality is to streamline the collection and submission of 5R operational data directly from the field. The app provides an intuitive interface for users to effortlessly log observations, track compliance, and generate comprehensive reports pertaining to 5R (Ringkas, Rapi, Resik, Rawat, Rajin) principles. By leveraging React Native, the application ensures a consistent and high-performance experience on Android devices, facilitating efficient data capture and immediate insights for operational management.",
     "thumbnail": "projects/aps.png",
+    "pdf":"5rtk.pdf",
     "github": "https://github.com/naanas",
     "deployed": "https://patralogistik.com/portal/berita/detail/Soft_Launching_Aplikasi_5R_Tracker_PT_Patra_Logistik/",
     "date": "May 2025"
 
   }
+  
 ]
 

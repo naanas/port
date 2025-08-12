@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaGithub, FaExternalLinkAlt, FaTimesCircle } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaTimesCircle, FaFilePdf } from "react-icons/fa";
 import Modal from "react-modal";
 import { useTrail, useSpring, animated } from "react-spring";
 import projects from "../constants/projects.json";
@@ -66,6 +66,7 @@ const ProjectModal = ({ project, isOpen, closeModal }) => (
             >
               <FaGithub size={20} className="group-hover:scale-110 transition-transform duration-200" />
             </a>
+
           )}
           <a
             href={project.deployed}
@@ -76,6 +77,16 @@ const ProjectModal = ({ project, isOpen, closeModal }) => (
           >
             <FaExternalLinkAlt size={18} className="group-hover:scale-110 transition-transform duration-200" />
           </a>
+          <a
+              href={project.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full hover:bg-gray-700 hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-xl"
+              title="View PDF"
+              >
+                <FaFilePdf size={18} className="group-hover:scale-110 transition-transform duration-200" />
+          </a>
+          
         </div>
       </div>
     </div>
