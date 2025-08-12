@@ -14,7 +14,7 @@
     "description": "This project, 'Conpo5RTK', is a dynamic and intuitive web dashboard meticulously developed using JavaScript with the cutting-edge React library, powered by Vite for a fast and efficient development experience. Designed as a comprehensive monitoring tool, the dashboard's primary function is to provide real-time insights and a clear overview of 5R operational data. It enables users to effectively track, analyze, and visualize key performance indicators related to 5R (Ringkas, Rapi, Resik, Rawat, Rajin) principles. The modern architecture facilitated by React and Vite ensures a highly responsive and scalable application, delivering a seamless user experience for operational oversight and decision-making.",
     "thumbnail": "projects/dashweb.png",
     "github": "https://github.com/naanas",
-    "deployed": "https://vite-project-ebon-mu.vercel.app/",
+    "deployed": "https://conpo5rtk.vercel.app/",
     "date": "May 2025"
 
   },
