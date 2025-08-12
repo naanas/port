@@ -8,41 +8,73 @@ const ProjectModal = ({ project, isOpen, closeModal }) => (
   <Modal
     isOpen={isOpen}
     onRequestClose={closeModal}
-    className="fixed inset-0 z-50 flex items-center justify-center p-6"
-    overlayClassName="bg-black bg-opacity-50 transition-opacity duration-500 ease-out"
+    className="fixed inset-0 z-50 flex items-center justify-center pt-16 p-4"
+    overlayClassName="fixed inset-0 bg-gradient-to-br from-white-600/90 via-white-700/90 to-indigo-800/90 backdrop-blur-md transition-all duration-300 ease-out"
+    shouldCloseOnOverlayClick={true}
+    shouldCloseOnEsc={true}
   >
-    <div className="bg-white p-6 rounded-lg shadow-2xl transform transition-transform duration-500 ease-out space-y-4 sm:space-y-0  max-w-md max-h-[80vh] overflow-y-auto">
-      <button
-        onClick={closeModal}
-        className="absolute top-2 right-2 text-darkDesert hover:text-goldDesert"
-      >
-        <FaTimesCircle size={32} />
-      </button>
-
-      <div>
-        <h3 className="text-darkDesert text-2xl sm:text-3xl font-bold mb-4">
+    <div className="relative bg-white rounded-2xl shadow-2xl transform transition-all duration-300 ease-out w-full max-w-lg mx-auto my-auto max-h-[90vh] flex flex-col">
+      {/* Header with close button */}
+      <div className="relative bg-gradient-to-r from-amber-500 to-indigo-600 px-6 py-4 rounded-t-2xl flex-shrink-0">
+        <button
+          onClick={closeModal}
+          className="absolute top-3 right-3 text-white/80 hover:text-white hover:scale-110 transition-all duration-200 bg-white/20 rounded-full p-2 backdrop-blur-sm hover:bg-white/30"
+        >
+          <FaTimesCircle size={18} />
+        </button>
+        <h3 className="text-white text-xl sm:text-2xl font-bold pr-12 leading-tight">
           {project.title}
         </h3>
-        <p className="text-darkDesert mb-4">{project.description}</p>
-        <p className="text-darkDesert font-bold mb-4">{project.date}</p>
-        <div className="flex justify-between items-center">
-          {project.github ? (
+      </div>
+
+      {/* Scrollable content */}
+      <div className="flex-1 p-6 overflow-y-auto">
+        {/* Project thumbnail */}
+        <div className="mb-5 relative overflow-hidden rounded-xl shadow-lg">
+          <img
+            src={project.thumbnail}
+            alt={project.title}
+            className="w-full h-48 sm:h-52 object-cover transition-transform duration-300 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+        </div>
+        
+        {/* Description */}
+        <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-4 mb-5 border border-gray-200/50 shadow-sm">
+          <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+            {project.description}
+          </p>
+        </div>
+        
+        {/* Date badge */}
+        <div className="flex justify-center mb-6">
+          <div className="inline-flex items-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+            <span className="w-2 h-2 bg-white/50 rounded-full mr-2"></span>
+            {project.date}
+          </div>
+        </div>
+        
+        {/* Action buttons */}
+        <div className="flex justify-center gap-4">
+          {project.github && (
             <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="mx-2 text-darkDesert hover:text-goldDesert transition-colors duration-300"
+              className="group flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full hover:bg-gray-700 hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-xl"
+              title="View on GitHub"
             >
-              <FaGithub size={32} />
+              <FaGithub size={20} className="group-hover:scale-110 transition-transform duration-200" />
             </a>
-          ) : null}
+          )}
           <a
             href={project.deployed}
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-2 text-darkDesert hover:text-goldDesert transition-colors duration-300"
+            className="group flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full hover:from-blue-400 hover:to-indigo-500 hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-xl"
+            title="View Live Demo"
           >
-            <FaExternalLinkAlt size={32} />
+            <FaExternalLinkAlt size={18} className="group-hover:scale-110 transition-transform duration-200" />
           </a>
         </div>
       </div>
