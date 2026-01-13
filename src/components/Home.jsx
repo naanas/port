@@ -25,49 +25,34 @@ export default function Home() {
   });
 
   return (
-    <div
-      id="home"
-      className="container mx-auto bg-lightDesert flex flex-col items-center justify-center min-h-screen"
-    >
-      <animated.header
-        style={logoSpring}
-        className="text-center mb-4"
-      >
-        <h1 className="text-5xl font-bold text-darkDesert mb-2">Hi, I am Annas Anuraga.</h1>
-        <h2 className="text-2xl font-semibold text-tealDesert mt-2 mb-4">A IT Business Analyst & Frontend Freelancer.</h2>
-        <p className="text-xl text-gray-700">At present, I am striving to continuously grow and make a meaningful contribution to technology industry. I believe that technology is a driver of change, and I am enthusiastic about continually learning, innovating, and collaborating with fellow professionals to tackle complex challenges and create sustainable solutions.
-</p>
-      </animated.header>
+    <div id="home" className="min-h-screen relative overflow-hidden flex flex-col justify-center px-6 lg:px-20">
+      
+      {/* Background Gradient Blob yang bergerak halus */}
+      <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-tealDesert rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob"></div>
+      <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-goldDesert rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob animation-delay-2000"></div>
 
-      <animated.div style={iconSpring} className="flex flex-col mt-2 space-x-6">
-        <div className="flex mt-2 space-x-6">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={GITHUB_URL}
-            className="text-darkDesert hover:text-goldDesert transition-colors duration-300"
-          >
-            <FaGithub className="w-10 h-10" />
-            <span className="sr-only">GitHub account</span>
-          </a>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={LINKEDIN_URL}
-            className="text-darkDesert hover:text-goldDesert transition-colors duration-300"
-          >
-            <FaLinkedin className="w-10 h-10" />
-            <span className="sr-only">LinkedIn account</span>
-          </a>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={RESUME_URL}
-            className="text-darkDesert hover:text-goldDesert transition-colors duration-300"
-          >
-            <FaFileAlt className="w-10 h-10" />
-            <span className="sr-only">Resume</span>
-          </a>
+      <animated.div style={logoSpring} className="z-10 relative">
+        <p className="text-tealDesert font-mono tracking-widest mb-4">● FULL STACK DEV</p>
+        
+        {/* Judul Besar ala Majalah */}
+        <h1 className="text-6xl md:text-8xl lg:text-9xl font-heading font-bold text-darkDesert leading-[0.9]">
+          ANNAS <br />
+          <span className="italic font-light ml-10">ANURAGA</span>
+        </h1>
+
+        <div className="mt-8 flex flex-col md:flex-row justify-between items-start md:items-end w-full max-w-4xl">
+          <p className="text-lg md:text-xl text-gray-700 max-w-md font-body leading-relaxed">
+            Crafting digital experiences that merge <span className="font-bold text-darkDesert">business logic</span> with <span className="font-bold text-darkDesert">artistic interface</span>.
+          </p>
+          
+          {/* Social Icons (Sesuai kode lama tapi styling baru) */}
+          <animated.div style={iconSpring} className="flex gap-4 mt-6 md:mt-0">
+             {/* Gunakan komponen ikon lama kamu di sini */}
+             {/* Contoh styling tombol unik: */}
+             <a href={GITHUB_URL} className="border border-darkDesert px-6 py-2 rounded-full hover:bg-darkDesert hover:text-lightDesert transition-all duration-300 uppercase text-sm tracking-widest">
+                GitHub
+             </a>
+          </animated.div>
         </div>
       </animated.div>
     </div>

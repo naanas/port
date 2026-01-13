@@ -16,19 +16,25 @@
     "github": "https://github.com/naanas",
     "deployed": "https://conpo5rtk.vercel.app/",
     "date": "May 2025"
-
   },
   {
     "id": "10",
     "title": "5R Tracker Apps",
     "description": "This Android application, '5R Tracker', is developed using JavaScript with the robust React Native framework, making it a powerful and cross-platform mobile solution. Designed as a dedicated reporting system, its core functionality is to streamline the collection and submission of 5R operational data directly from the field. The app provides an intuitive interface for users to effortlessly log observations, track compliance, and generate comprehensive reports pertaining to 5R (Ringkas, Rapi, Resik, Rawat, Rajin) principles. By leveraging React Native, the application ensures a consistent and high-performance experience on Android devices, facilitating efficient data capture and immediate insights for operational management.",
     "thumbnail": "projects/aps.png",
-    "pdf":"5rtk.pdf",
+    "pdf": "5rtk.pdf",
     "github": "https://github.com/naanas",
     "deployed": "https://patralogistik.com/portal/berita/detail/Soft_Launching_Aplikasi_5R_Tracker_PT_Patra_Logistik/",
     "date": "May 2025"
-
+  },
+  {
+    "id": "11",
+    "title": "Full Stack Application",
+    "description": "his project is a comprehensive full-stack solution designed to automate activity reporting from Jira data ingestion to document distribution. The system consists of two main pillars: a Vue.js 3 Frontend (Client) and a Node.js/Express Backend (Server), communicating via secure RESTful APIs. The Frontend features a Hybrid Theme Engine for switching between Corporate and Grimoire dark modes, alongside a real-time Live Document Preview that is fully responsive for desktop and mobile. The Server operates as a robust processing engine on Vercel, synchronizing Jira data through Google Apps Script. Its core technical strength is an advanced ExcelJS algorithm that automatically groups and merges cells by date, ensuring accurate mandays calculations even with multiple daily tasks. Security and monetization are handled through Supabase (PostgreSQL) for data integrity and Xendit for payment processing. Once a payment is verified via webhook, the system automatically renders high-fidelity PDFs using Puppeteer and distributes them via email, providing a seamless, automated end-to-end reporting experience.. \n\nClient Repository: https://github.com/naanas/client\n\n Server Repository: https://github.com/naanas/server",
+    "thumbnail": "projects/sheet.png",
+    "pdf": "grimoire.pdf",
+    "github": "https://github.com/naanas/client",
+    "deployed": "https://timesheetpoj.vercel.app",
+    "date": "June 2025"
   }
-  
 ]
-

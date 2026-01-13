@@ -1,180 +1,227 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaGithub, FaExternalLinkAlt, FaTimesCircle, FaFilePdf } from "react-icons/fa";
-import Modal from "react-modal";
-import { useTrail, useSpring, animated } from "react-spring";
+// Hapus import Modal from "react-modal" karena kita buat custom modal
+import { useTrail, useTransition, animated } from "react-spring";
 import projects from "../constants/projects.json";
 
-const ProjectModal = ({ project, isOpen, closeModal }) => (
-  <Modal
-    isOpen={isOpen}
-    onRequestClose={closeModal}
-    className="fixed inset-0 z-50 flex items-center justify-center pt-16 p-4"
-    overlayClassName="fixed inset-0 bg-gradient-to-br from-white-600/90 via-white-700/90 to-indigo-800/90 backdrop-blur-md transition-all duration-300 ease-out"
-    shouldCloseOnOverlayClick={true}
-    shouldCloseOnEsc={true}
-  >
-    <div className="relative bg-white rounded-2xl shadow-2xl transform transition-all duration-300 ease-out w-full max-w-lg mx-auto my-auto max-h-[90vh] flex flex-col">
-      {/* Header with close button */}
-      <div className="relative bg-gradient-to-r from-amber-500 to-indigo-600 px-6 py-4 rounded-t-2xl flex-shrink-0">
-        <button
-          onClick={closeModal}
-          className="absolute top-3 right-3 text-white/80 hover:text-white hover:scale-110 transition-all duration-200 bg-white/20 rounded-full p-2 backdrop-blur-sm hover:bg-white/30"
-        >
-          <FaTimesCircle size={18} />
-        </button>
-        <h3 className="text-white text-xl sm:text-2xl font-bold pr-12 leading-tight">
-          {project.title}
-        </h3>
-      </div>
+// --- Project Modal Component (Custom Implementation) ---
+const ProjectModal = ({ project, closeModal }) => {
+  // Efek untuk mematikan scroll pada body saat modal terbuka
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
-      {/* Scrollable content */}
-      <div className="flex-1 p-6 overflow-y-auto">
-        {/* Project thumbnail */}
-        <div className="mb-5 relative overflow-hidden rounded-xl shadow-lg">
+  // Mencegah klik pada konten modal menutup modal
+  const handleContentClick = (e) => {
+    e.stopPropagation();
+  };
+
+  return (
+    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6">
+      
+      {/* Backdrop (Klik di sini akan menutup modal) */}
+      <div 
+        className="absolute inset-0 bg-darkDesert/90 backdrop-blur-sm transition-opacity" 
+        onClick={closeModal}
+      ></div>
+
+      {/* Modal Content Card */}
+      <div 
+        onClick={handleContentClick}
+        className="relative z-10 bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden outline-none"
+      >
+        
+        {/* Header Image Area */}
+        <div className="relative h-56 sm:h-80 w-full flex-shrink-0 group">
           <img
             src={project.thumbnail}
             alt={project.title}
-            className="w-full h-48 sm:h-52 object-cover transition-transform duration-300 hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-        </div>
-        
-        {/* Description */}
-        <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-4 mb-5 border border-gray-200/50 shadow-sm">
-          <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-            {project.description}
-          </p>
-        </div>
-        
-        {/* Date badge */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-            <span className="w-2 h-2 bg-white/50 rounded-full mr-2"></span>
-            {project.date}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 z-20 text-white/80 hover:text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 rounded-full p-2 backdrop-blur-md"
+          >
+            <FaTimesCircle size={28} />
+          </button>
+
+          <div className="absolute bottom-6 left-6 right-6 z-10">
+            <h3 className="text-white text-3xl sm:text-5xl font-serif font-bold leading-tight mb-3 drop-shadow-md">
+              {project.title}
+            </h3>
+            <div className="flex flex-wrap items-center gap-3">
+               <span className="bg-goldDesert text-white text-xs sm:text-sm font-mono px-4 py-1.5 rounded-full uppercase tracking-wider font-semibold shadow-lg">
+                 {project.date}
+               </span>
+            </div>
           </div>
         </div>
-        
-        {/* Action buttons */}
-        <div className="flex justify-center gap-4">
-          {project.github && (
+
+        {/* Content Area */}
+        <div className="flex-1 p-6 sm:p-10 overflow-y-auto bg-white custom-scrollbar">
+          <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed font-sans mb-8">
+            <p className="text-lg">{project.description}</p>
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-4 pt-6 border-t border-gray-100">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-6 py-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 hover:-translate-y-1 transition-all duration-300 shadow-lg font-medium"
+              >
+                <FaGithub size={22} />
+                <span>Source Code</span>
+              </a>
+            )}
+            
             <a
-              href={project.github}
+              href={project.deployed}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full hover:bg-gray-700 hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-xl"
-              title="View on GitHub"
+              className="flex items-center gap-3 px-6 py-3 bg-tealDesert text-white rounded-xl hover:bg-tealDesert/90 hover:-translate-y-1 transition-all duration-300 shadow-lg font-medium"
             >
-              <FaGithub size={20} className="group-hover:scale-110 transition-transform duration-200" />
+              <FaExternalLinkAlt size={20} />
+              <span>Live Demo</span>
             </a>
 
-          )}
-          <a
-            href={project.deployed}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full hover:from-blue-400 hover:to-indigo-500 hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-xl"
-            title="View Live Demo"
-          >
-            <FaExternalLinkAlt size={18} className="group-hover:scale-110 transition-transform duration-200" />
-          </a>
-          <a
-              href={project.pdf}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full hover:bg-gray-700 hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-xl"
-              title="View PDF"
+            {project.pdf && (
+               <a
+                href={project.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-14 h-[50px] border-2 border-gray-200 text-gray-500 rounded-xl hover:border-red-500 hover:text-red-500 hover:bg-red-50 transition-all duration-300"
+                title="View PDF"
               >
-                <FaFilePdf size={18} className="group-hover:scale-110 transition-transform duration-200" />
-          </a>
-          
+                <FaFilePdf size={24} />
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
-  </Modal>
-);
+  );
+};
 
-// move ProjectCard outside component so modalIsOpen does not trigger entire component to re-render
-const ProjectCard = ({ project, openModal }) => {
-  // Enhance card hover effect
-  const [hovered, setHovered] = useState(false);
-  const hoverProps = useSpring({
-    transform: hovered ? "scale(1.05)" : "scale(1)",
-  });
-
+// --- Project Card Component ---
+const ProjectCard = ({ project, openModal, isLarge }) => {
   return (
-    <animated.div
-      style={hoverProps}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative group"
+    <div 
+        onClick={openModal}
+        className="group relative h-80 md:h-[450px] w-full overflow-hidden rounded-[2rem] bg-gray-100 cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
     >
-      <div className="relative group">
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          className="w-full h-64 object-cover rounded-lg shadow-md"
-        />
-        <div className="absolute inset-0 bg-darkDesert bg-opacity-70 flex items-center justify-center rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-all duration-500">
-          <h1 className="text-lightDesert text-center text-sm md:text-2xl lg:text-3xl truncate w-11/12 md:w-10/12 font-bold">
-            {project.title}
-          </h1>
+      {/* Image with zoom effect */}
+      <img
+        src={project.thumbnail}
+        alt={project.title}
+        className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0"
+      />
+      
+      {/* Overlay Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-darkDesert/90 via-darkDesert/20 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+      {/* Content Overlay */}
+      <div className="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+        <h1 className="text-lightDesert text-3xl font-serif font-bold leading-tight mb-2 drop-shadow-md">
+          {project.title}
+        </h1>
+        <div className="h-0.5 w-12 bg-goldDesert mb-4 transition-all duration-500 group-hover:w-24"></div>
+        
+        <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+          <span className="text-white/90 text-sm font-mono tracking-widest uppercase">
+            View Project
+          </span>
+          <span className="bg-white/20 p-2.5 rounded-full text-white backdrop-blur-sm">
+              <FaExternalLinkAlt size={14} />
+          </span>
         </div>
-        <button onClick={openModal} className="absolute inset-0 cursor-pointer">
-          <span className="sr-only">Open details for {project.title}</span>
-        </button>
       </div>
-    </animated.div>
+    </div>
   );  
 };
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
+  
+  const reversedProjects = [...projects].reverse();
 
-  // Staggered card load animation
-  const trails = useTrail(projects.length, {
+  // Animation for list items
+  const trails = useTrail(reversedProjects.length, {
     opacity: 1,
     transform: "translateY(0px)",
-    from: { opacity: 0, transform: "translateY(20px)" },
+    from: { opacity: 0, transform: "translateY(40px)" },
     delay: 200,
-    config: { mass: 5, tension: 2000, friction: 200 },
+    config: { mass: 1, tension: 280, friction: 60 },
   });
 
   const openModal = (project) => setSelectedProject(project);
   const closeModal = () => setSelectedProject(null);
 
-  // Modal fade-in and scale effect
-  const modalAnimation = useSpring({
-    opacity: selectedProject ? 1 : 0,
-    transform: selectedProject ? "scale(1)" : "scale(0.9)",
-    config: { tension: 150, friction: 20 },
+  // Animation for Modal Entry/Exit using useTransition (Smoother than useSpring conditional)
+  const modalTransition = useTransition(selectedProject, {
+    from: { opacity: 0, transform: "scale(0.95) translateY(20px)" },
+    enter: { opacity: 1, transform: "scale(1) translateY(0px)" },
+    leave: { opacity: 0, transform: "scale(0.95) translateY(20px)" },
+    config: { mass: 1, tension: 300, friction: 25, clamp: true }
   });
-
-  const reversedProjects = [...projects].reverse();
 
   return (
     <div
       id="projects"
-      className="container mx-auto flex flex-col items-center p-8 bg-lightDesert mt-12 min-h-screen"
+      className="relative w-full bg-lightDesert min-h-screen py-24 px-4 overflow-hidden"
     >
-      <h2 className="text-4xl font-bold text-darkDesert mb-4">Projects</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-        {trails.map((props, index) => (
-          <animated.div key={reversedProjects[index].id} style={props}>
-            <ProjectCard
-              project={reversedProjects[index]}
-              openModal={() => openModal(reversedProjects[index])}
-            />
-          </animated.div>
-        ))}
+      {/* Background Noise Texture (Optional, adds editorial feel) */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-multiply bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+      <div className="container mx-auto max-w-7xl relative z-10">
+        <div className="mb-16 md:mb-24">
+          <h2 className="text-6xl md:text-8xl font-serif font-bold text-darkDesert tracking-tighter mb-4">
+            Selected <br className="hidden md:block" />
+            <span className="italic font-light ml-0 md:ml-4 text-tealDesert">Works</span>
+          </h2>
+          <div className="h-1 w-32 bg-darkDesert mt-6"></div>
+        </div>
+
+        {/* BENTO GRID LAYOUT */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
+          {trails.map((props, index) => {
+            const project = reversedProjects[index];
+            
+            // Logic for Bento Layout:
+            // Items at index 0 and 3 will span 2 columns
+            const isLarge = index === 0 || index === 3 || index === 6; 
+
+            return (
+              <animated.div 
+                key={project.id} 
+                style={props}
+                className={`${isLarge ? 'md:col-span-2' : 'md:col-span-1'}`}
+              >
+                <ProjectCard
+                  project={project}
+                  openModal={() => openModal(project)}
+                  isLarge={isLarge}
+                />
+              </animated.div>
+            );
+          })}
+        </div>
       </div>
-      {selectedProject && (
-        <animated.div style={modalAnimation}>
-          <ProjectModal
-            project={selectedProject}
-            isOpen={!!selectedProject}
-            closeModal={closeModal}
-          />
-        </animated.div>
+
+      {/* Render Modal via Transition */}
+      {modalTransition((style, item) => 
+        item ? (
+          <animated.div style={style} className="fixed inset-0 z-[100] flex justify-center items-center">
+             <ProjectModal project={item} closeModal={closeModal} />
+          </animated.div>
+        ) : null
       )}
     </div>
   );
