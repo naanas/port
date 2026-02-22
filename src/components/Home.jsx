@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-scroll";
+import { HashLink as Link } from "react-router-hash-link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { GITHUB_URL, LINKEDIN_URL, HERO_IMAGE } from "../constants/index";
 import { useSpring, animated, config } from "react-spring";
@@ -68,9 +68,8 @@ export default function Home() {
             {/* CTA & Socials */}
             <div className="flex flex-col sm:flex-row items-center gap-6 lg:gap-8">
               <Link
-                to="projects"
-                smooth={true}
-                duration={500}
+                to="#projects"
+                smooth
                 className="group relative cursor-pointer font-mono font-medium"
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-neonCyan to-neonPurple rounded-full blur opacity-40 group-hover:opacity-100 transition duration-500"></div>

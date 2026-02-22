@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-scroll";
+import { HashLink as Link } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const MobileNavItem = ({ to, text, onClick }) => (
   <Link
-    to={to}
-    smooth={true}
-    duration={500}
+    to={`#${to}`}
+    smooth
     className="block w-full py-4 text-center text-xl font-heading font-medium text-textMain hover:text-neonCyan transition-all duration-300 relative group"
     onClick={onClick}
   >
@@ -17,9 +16,8 @@ const MobileNavItem = ({ to, text, onClick }) => (
 
 const NavItem = ({ to, text }) => (
   <Link
-    to={to}
-    smooth={true}
-    duration={500}
+    to={`#${to}`}
+    smooth
     className="px-4 py-2 text-sm font-mono tracking-wider uppercase text-textMuted hover:text-neonCyan cursor-pointer transition-colors duration-300 relative group"
   >
     {text}
@@ -51,14 +49,14 @@ const NavBar = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-          ? 'backdrop-blur-xl bg-cyberBlack/80 border-b border-cyberGray shadow-lg'
-          : 'bg-transparent'
+        ? 'backdrop-blur-xl bg-cyberBlack/80 border-b border-cyberGray shadow-lg'
+        : 'bg-transparent'
         } px-4 lg:px-6 py-4`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3 relative z-50">
-          <Link to="home" smooth={true} duration={500} className="cursor-pointer group flex items-center gap-2">
+          <Link to="#home" smooth className="cursor-pointer group flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-cyberGray border border-neonCyan/30 flex items-center justify-center group-hover:border-neonCyan transition-colors duration-300 group-hover:shadow-neon">
               <span className="font-heading font-black text-xl text-textMain tracking-tighter">AA<span className="text-neonCyan">.</span></span>
             </div>
