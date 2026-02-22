@@ -1,15 +1,14 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { GITHUB_URL, LINKEDIN_URL, PERPLEXITY_URL } from "../constants/index";
+import { GITHUB_URL, LINKEDIN_URL } from "../constants/index";
 import { useSpring, animated, config } from "react-spring";
-import { SiPerplexity } from "react-icons/si";
 
 const Anchor = ({ href, children }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="mx-2 text-darkDesert hover:text-goldDesert transition-colors duration-300"
+    className="group flex items-center justify-center w-12 h-12 rounded-full bg-white text-darkDesert border border-gray-200 shadow-sm hover:bg-darkDesert hover:text-white hover:border-darkDesert hover:scale-110 transition-all duration-300"
     aria-label={`Link to ${href}`}
   >
     {children}
@@ -17,21 +16,18 @@ const Anchor = ({ href, children }) => (
 );
 
 const About = () => {
-  // Fade-in effect
   const fadeIn = useSpring({
     opacity: 1,
     from: { opacity: 0 },
     config: config.slow,
   });
 
-  // Springy effect on image hover
   const [scale, setScale] = useState(1);
   const springProps = useSpring({
     transform: `scale(${scale})`,
     config: config.wobbly,
   });
 
-  // Slide-up effect
   const slideUp = useSpring({
     transform: "translate3d(0,0px,0)",
     from: { transform: "translate3d(0,40px,0)" },
@@ -42,48 +38,61 @@ const About = () => {
     <animated.div
       style={fadeIn}
       id="about"
-      className="container mx-auto flex flex-col items-center justify-center bg-lightDesert min-h-screen"
+      className="bg-white min-h-screen py-24 px-6 lg:px-20 relative overflow-hidden"
     >
-      <animated.img
-        style={{ ...springProps }}
-        src="images/prof.png"
-        alt="Sara"
-        className="rounded-full w-64 h-64 border-4 border-darkDesert object-cover mb-8 mt-20"
-        onMouseEnter={() => setScale(1.1)}
-        onMouseLeave={() => setScale(1)}
-      />
-      <animated.div style={slideUp}>
-        <h1 className="text-4xl font-bold text-darkDesert mb-4 text-center px-8">
-          Annas Anuraga
-        </h1>
-        <p className="text-lg text-darkDesert mb-4 text-center px-8">
-          I am a highly driven and perpetually curious individual with an unwavering passion for Information Technology, a field that has captivated my interest and shaped my career trajectory. My professional life is currently dedicated to my role as a Business Analyst, where I serve as a crucial conduit between diverse business stakeholders and the technical development teams. In this capacity, I am responsible for meticulously gathering and analyzing complex business requirements, translating them into clear, actionable functional specifications, and ensuring that the technological solutions developed truly align with strategic organizational goals. I thrive on problem-solving and optimizing processes, always seeking to identify efficiencies and drive impactful change through a data-driven approach.        </p>
-        <p className="text-lg text-darkDesert mb-4 text-center px-8">
-          Beyond my corporate responsibilities, my entrepreneurial spirit finds expression in my active freelance work as a frontend developer. My expertise lies primarily in the modern JavaScript ecosystem, specifically mastering React Native for crafting high-performance, intuitive mobile applications that deliver seamless user experiences across various platforms, and React.js for building dynamic, responsive, and visually appealing web interfaces. This hands-on development work allows me to not only stay abreast of the latest technological advancements but also to directly apply my creativity and technical prowess to bring innovative digital products to life for a diverse clientele.
-        </p>
-        <p className="text-lg text-darkDesert mb-4 text-center px-8">
-          The synergy between my analytical role as a Business Analyst and my practical skills as a freelance developer provides me with a unique holistic perspective on the entire software development lifecycle, from initial conceptualization and strategic planning to intricate technical execution and user-centric design. I am constantly seeking opportunities to learn, grow, and contribute to the ever-evolving landscape of technology, striving to create solutions that are not only functional but also elegantly designed and truly valuable.{" "}
-          {" "}
-          --pure bliss!
-        </p>
+      <div className="container mx-auto max-w-6xl">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
-        <p className="text-lg text-darkDesert mb-4 text-center px-8">
-          Let's collab!
-        </p>
-        <div className="flex justify-center items-center pb-8">
-          <Anchor href={GITHUB_URL}>
-            <FaGithub size={32} />
-          </Anchor>
-          <Anchor href={LINKEDIN_URL}>
-            <FaLinkedin size={32} />
-          </Anchor>
-          {/* <Anchor href={PERPLEXITY_URL}>
-            <SiPerplexity size={32} />
-          </Anchor> */}
+          {/* Image Section */}
+          <animated.div
+            style={slideUp}
+            className="w-full lg:w-1/3 flex justify-center relative"
+          >
+            <div className="absolute inset-0 bg-tealDesert/10 rounded-full blur-[80px] -z-10 transform scale-150"></div>
+            <animated.img
+              style={{ ...springProps }}
+              src="/images/prof.png"
+              alt="Annas Anuraga"
+              className="rounded-[2rem] w-64 h-64 md:w-80 md:h-80 object-cover shadow-2xl grayscale-[20%] hover:grayscale-0 transition-all duration-500"
+              onMouseEnter={() => setScale(1.05)}
+              onMouseLeave={() => setScale(1)}
+            />
+          </animated.div>
+
+          {/* Text Content Section */}
+          <animated.div style={slideUp} className="w-full lg:w-2/3 flex flex-col items-start">
+            <h2 className="text-sm font-mono tracking-widest text-tealDesert uppercase mb-4 font-bold">About Me</h2>
+            <h1 className="text-4xl md:text-6xl font-heading font-black text-darkDesert mb-8 leading-tight">
+              Bridging <span className="text-transparent bg-clip-text bg-gradient-to-r from-darkDesert to-goldDesert">Business Logic</span> & <span className="italic font-light">Technical Excellence</span>
+            </h1>
+
+            <div className="space-y-6 text-gray-600 font-body text-lg leading-relaxed max-w-3xl">
+              <p>
+                I am a highly driven and perpetually curious individual with an unwavering passion for Information Technology. Currently, I serve as a Business Analyst, acting as a crucial conduit between diverse business stakeholders and technical development teams.
+              </p>
+              <p>
+                Beyond corporate responsibilities, my entrepreneurial spirit thrives in freelance frontend development. My expertise lies in the modern JavaScript ecosystem, specifically crafting high-performance React Native mobile apps and dynamic React.js web interfaces.
+              </p>
+              <p className="font-medium text-darkDesert">
+                The synergy between my analytical role and practical dev skills provides me with a unique holistic perspective on the software development lifecycle. I strive to create solutions that are not only functional but elegantly designed.
+              </p>
+            </div>
+
+            <div className="mt-12 flex items-center gap-8">
+              <div className="flex gap-4">
+                <Anchor href={GITHUB_URL}>
+                  <FaGithub size={20} />
+                </Anchor>
+                <Anchor href={LINKEDIN_URL}>
+                  <FaLinkedin size={20} />
+                </Anchor>
+              </div>
+              <p className="text-gray-400 font-mono text-sm uppercase tracking-wider">Let's Connect</p>
+            </div>
+          </animated.div>
+
         </div>
-        <div>
-        </div>
-      </animated.div>
+      </div>
     </animated.div>
   );
 };

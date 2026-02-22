@@ -1,17 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
-const linkClasses =
-  "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700";
+const linkClasses = "block py-2 pr-4 pl-3 text-gray-700 hover:text-darkDesert font-medium transition-colors duration-300 lg:p-0 dark:text-gray-300 dark:hover:text-white relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-tealDesert after:transition-all hover:after:w-full";
 
 const NavLink = ({ to, onClick, children }) => (
   <li>
-    <Link
-      to={to}
-      onClick={onClick}
-      className={`${linkClasses}`}
-      aria-current="page"
-    >
+    <Link to={to} onClick={onClick} className={linkClasses} aria-current="page">
       {children}
     </Link>
   </li>
@@ -19,93 +13,54 @@ const NavLink = ({ to, onClick, children }) => (
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const toggleOpen = useCallback(() => {
-    setIsOpen((prevState) => !prevState);
+  const toggleOpen = useCallback(() => setIsOpen(prev => !prev), []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header>
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-darkDesert fixed top-0 w-full z-50">
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-md bg-white/70 border-b border-gray-200/50 shadow-glass' : 'bg-transparent'} px-4 lg:px-6 py-4`}>
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex items-center">
-            <img
-              src="/dev-icon.svg"
-              className="mr-3 h-6 sm:h-9"
-              alt="Sara Dev Logo"
-            />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              
+          <Link to="/" className="flex items-center gap-2 group">
+            {/* Text Logo instead of missing img */}
+            <span className="self-center text-2xl font-heading font-bold text-darkDesert group-hover:text-tealDesert transition-colors">
+              AA.
             </span>
           </Link>
           <div className="flex items-center lg:order-2">
             <button
               onClick={toggleOpen}
               type="button"
-              className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="mobile-menu-2"
+              className="inline-flex items-center p-2 text-sm rounded-lg lg:hidden hover:bg-gray-100/50 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors"
               aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <svg
-                className="hidden w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
+              <svg className="w-6 h-6 text-darkDesert" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                {isOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
               </svg>
             </button>
           </div>
-          <div
-            className={`${
-              isOpen ? "block" : "hidden"
-            } justify-between items-center w-full lg:flex lg:w-auto lg:order-1`}
-            id="mobile-menu-2"
-          >
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              <NavLink to="/" onClick={toggleOpen}>
-                Home
-              </NavLink>
-              <NavLink to="/about" onClick={toggleOpen}>
-                About
-              </NavLink>
-              <NavLink to="/projects" onClick={toggleOpen}>
-                Projects
-              </NavLink>
-              <NavLink to="/skills" onClick={toggleOpen}>
-                Skills
-              </NavLink>
-              <NavLink to="/experience" onClick={toggleOpen}>
-                Experience
-              </NavLink>
-              <NavLink to="/education" onClick={toggleOpen}>
-                Education
-              </NavLink>
-              <NavLink to="/contact" onClick={toggleOpen}>
-                Contact Me
-              </NavLink>
-              {/* <li>
-                <a href="/baqla_resume.pdf" className={linkClasses}>
-                  Resume
-                </a>
-              </li> */}
+          <div className={`${isOpen ? "block bg-white/95 backdrop-blur-md mt-4 p-4 rounded-2xl shadow-lg lg:bg-transparent lg:shadow-none lg:p-0 lg:mt-0" : "hidden"} justify-between items-center w-full lg:flex lg:w-auto lg:order-1 transition-all`}>
+            <ul className="flex flex-col mt-4 font-body lg:flex-row lg:space-x-8 lg:mt-0 gap-4 lg:gap-0">
+              <NavLink to="/" onClick={toggleOpen}>Home</NavLink>
+              <NavLink to="/about" onClick={toggleOpen}>About</NavLink>
+              <NavLink to="/projects" onClick={toggleOpen}>Projects</NavLink>
+              <NavLink to="/skills" onClick={toggleOpen}>Skills</NavLink>
+              <NavLink to="/experience" onClick={toggleOpen}>Experience</NavLink>
+              <NavLink to="/education" onClick={toggleOpen}>Education</NavLink>
+              <NavLink to="/contact" onClick={toggleOpen}>Contact</NavLink>
             </ul>
           </div>
         </div>

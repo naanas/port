@@ -1,5 +1,4 @@
-import React from "react"; // Removed useState as modal is removed
-// Removed Modal and FaTimesCircle imports as they are no longer used
+import React from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -8,106 +7,100 @@ import "react-vertical-timeline-component/style.min.css";
 import jobExperiences from "../constants/jobExperiences.json";
 import nonDevExperiences from "../constants/nonDevExperience.json";
 
-const JobExperienceCard = ({ experience }) => (
+const TimelineCard = ({ experience }) => (
   <VerticalTimelineElement
+    contentStyle={{
+      background: '#fff',
+      color: '#1C1C1C',
+      boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)',
+      borderRadius: '1rem',
+      padding: '2rem',
+      border: 'none'
+    }}
+    contentArrowStyle={{ borderRight: '7px solid  #fff' }}
+    iconStyle={{ background: '#fff', color: '#fff', boxShadow: '0 0 0 4px #0D9B8C, inset 0 2px 0 rgba(0,0,0,0.08), 0 3px 0 4px rgba(0,0,0,0.05)' }}
     icon={
-      <img
-        src={experience.img}
-        alt={experience.title}
-        className="h-full w-full rounded-full block"
-      />
+      <div className="flex items-center justify-center w-full h-full rounded-full overflow-hidden bg-white p-1">
+        <img
+          src={experience.img}
+          alt={experience.title}
+          className="h-full w-full rounded-full object-cover"
+        />
+      </div>
     }
-    contentStyle={{ position: "relative" }}
-    date={<span className="text-darkDesert">{experience.timePeriod}</span>}
   >
-    <h3 className="text-2xl font-bold text-darkDesert">{experience.title}</h3>
-    <p className="text-xl text-darkDesert italic mb-2">{experience.company}</p>
-    {experience.location && (
-      <p className="text-darkDesert text-sm mb-2">{experience.location}</p>
-    )}
-    {experience.description && (
-      <p className="text-darkDesert mb-2 text-justify whitespace-pre-line">{experience.description}</p>
-    )}
-    {experience.project && (
-      <p className="text-darkDesert mb-2 text-sm">
-        <span className="font-bold">Project:</span> {experience.project}
-      </p>
-    )}
-    {experience.skills && (
-      <p className="text-darkDesert text-sm">
-        <span className="font-bold">Skills:</span> {experience.skills}
-      </p>
-    )}
-  </VerticalTimelineElement>
-);
+    <div className="flex flex-col gap-1 mb-4">
+      <h3 className="text-2xl font-bold font-heading text-darkDesert leading-tight">{experience.title}</h3>
+      <h4 className="text-lg font-medium text-tealDesert flex justify-between items-center sm:flex-row flex-col sm:items-start gap-1 sm:gap-0">
+        <span>{experience.company}</span>
+        <span className="text-sm font-mono text-gray-400 bg-gray-50 px-3 py-1 rounded-full">{experience.timePeriod}</span>
+      </h4>
+    </div>
 
-const NonDevExperienceCard = ({ experience }) => (
-  <VerticalTimelineElement
-    icon={
-      <img
-        src={experience.img}
-        alt={experience.title}
-        className="h-full w-full rounded-full block"
-      />
-    }
-    contentStyle={{ position: "relative" }}
-    date={<span className="text-darkDesert">{experience.timePeriod}</span>}
-  >
-    <h3 className="text-2xl font-bold text-darkDesert">{experience.title}</h3>
-    <p className="text-xl text-darkDesert italic mb-2">{experience.company}</p>
     {experience.location && (
-      <p className="text-darkDesert text-sm mb-2">{experience.location}</p>
+      <p className="text-gray-500 text-sm mb-4 font-mono uppercase tracking-wider !mt-0 flex items-center gap-1">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        {experience.location}
+      </p>
     )}
+
     {experience.description && (
-      <p className="text-darkDesert mb-2 text-justify whitespace-pre-line">{experience.description}</p>
+      <p className="text-gray-600 mb-6 text-base leading-relaxed font-body whitespace-pre-line !mt-0 border-l-2 border-gray-100 pl-4">{experience.description}</p>
     )}
-    {experience.project && (
-      <p className="text-darkDesert mb-2 text-sm">
-        <span className="font-bold">Project:</span> {experience.project}
-      </p>
-    )}
-    {experience.skills && (
-      <p className="text-darkDesert text-sm">
-        <span className="font-bold">Skills:</span> {experience.skills}
-      </p>
-    )}
+
+    <div className="flex flex-col gap-3 !mt-0">
+      {experience.project && (
+        <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-col">
+          <span className="font-bold text-darkDesert mb-1 uppercase font-mono text-xs tracking-widest">Notable Project</span>
+          <span className="font-body">{experience.project}</span>
+        </p>
+      )}
+      {experience.skills && (
+        <div className="flex flex-wrap gap-2 mt-2">
+          {experience.skills.split(',').map((skill, idx) => (
+            <span key={idx} className="bg-tealDesert/10 text-tealDesert text-xs font-mono px-3 py-1 rounded-full font-medium">
+              {skill.trim()}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
   </VerticalTimelineElement>
 );
 
 const Experience = () => {
-  // Removed modalContent state as the modal is no longer used
   return (
     <div
       id="experience"
-      className="bg-lightDesert p-8 rounded-lg shadow-lg w-full mx-auto mt-12"
+      className="bg-white py-24 px-6 lg:px-20 min-h-screen relative"
     >
-      <h2 className="text-4xl font-bold text-darkDesert mb-4 text-center">
-       Developer Experience
-      </h2>
-      <VerticalTimeline>
-        {jobExperiences.map((experience, index) => (
-          <JobExperienceCard
-          key={index}
-          experience={experience}
-          // Removed onClick handler as there's no modal
-          />
-        ))}
-      </VerticalTimeline>
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-16">
+          <h2 className="text-sm font-mono tracking-widest text-tealDesert uppercase mb-4 font-bold">Journey</h2>
+          <h1 className="text-5xl md:text-7xl font-heading font-black text-darkDesert mb-6 uppercase">
+            Experience.
+          </h1>
+        </div>
 
-      <h2 className="text-4xl font-bold text-darkDesert mt-6 mb-4 text-center">
-        Non Dev Experience
-      </h2>
-      <VerticalTimeline>
-        {nonDevExperiences.map((experience) => (
-          <NonDevExperienceCard
-            key={experience.id}
-            experience={experience}
-            // Removed onClick handler as there's no modal
-          />
-        ))}
-      </VerticalTimeline>
+        <VerticalTimeline lineColor="#e5e7eb">
+          {jobExperiences.map((experience, index) => (
+            <TimelineCard key={`job-${index}`} experience={experience} />
+          ))}
+        </VerticalTimeline>
 
-      {/* The Modal component and its related logic have been removed as the image shows all details expanded inline. */}
+        <div className="text-center mt-24 mb-16">
+          <h2 className="text-sm font-mono tracking-widest text-goldDesert uppercase mb-4 font-bold">Other Roles</h2>
+          <h1 className="text-4xl md:text-5xl font-heading font-bold text-darkDesert mb-6">
+            Non-Dev Experience
+          </h1>
+        </div>
+
+        <VerticalTimeline lineColor="#e5e7eb">
+          {nonDevExperiences.map((experience) => (
+            <TimelineCard key={`nondev-${experience.id}`} experience={experience} />
+          ))}
+        </VerticalTimeline>
+      </div>
     </div>
   );
 };
