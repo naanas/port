@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { HashLink as Link } from "react-router-hash-link";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const MobileNavItem = ({ to, text, onClick }) => (
-  <Link
-    to={`#${to}`}
-    smooth
+  <a
+    href={`#${to}`}
     className="block w-full py-4 text-center text-xl font-heading font-medium text-textMain hover:text-neonCyan transition-all duration-300 relative group"
     onClick={onClick}
   >
     <span className="relative z-10">{text}</span>
     <span className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-neonCyan transition-all duration-300 group-hover:w-1/4 group-hover:-translate-x-1/2"></span>
-  </Link>
+  </a>
 );
 
 const NavItem = ({ to, text }) => (
-  <Link
-    to={`#${to}`}
-    smooth
+  <a
+    href={`#${to}`}
     className="px-4 py-2 text-sm font-mono tracking-wider uppercase text-textMuted hover:text-neonCyan cursor-pointer transition-colors duration-300 relative group"
   >
     {text}
     <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-neonCyan transition-all duration-300 group-hover:w-3/4 group-hover:-translate-x-1/2 shadow-neon"></span>
-  </Link>
+  </a>
 );
 
 const NavBar = () => {
@@ -56,11 +54,11 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3 relative z-50">
-          <Link to="#home" smooth className="cursor-pointer group flex items-center gap-2">
+          <a href="#home" className="cursor-pointer group flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-cyberGray border border-neonCyan/30 flex items-center justify-center group-hover:border-neonCyan transition-colors duration-300 group-hover:shadow-neon">
               <span className="font-heading font-black text-xl text-textMain tracking-tighter">AA<span className="text-neonCyan">.</span></span>
             </div>
-          </Link>
+          </a>
         </div>
 
         {/* Desktop Navigation */}

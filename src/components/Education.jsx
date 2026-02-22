@@ -58,7 +58,7 @@ export default function Education() {
 
       <div className="container mx-auto max-w-4xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-sm font-mono tracking-widest text-neonPulse uppercase mb-4 font-bold text-neonPurple">Academic</h2>
+          <h2 className="text-sm font-mono tracking-widest text-neonCyan uppercase mb-4 font-bold text-neonPurple">Academic</h2>
           <h1 className="text-5xl md:text-7xl font-heading font-black text-textMain mb-6 uppercase tracking-tight">
             Education.
           </h1>

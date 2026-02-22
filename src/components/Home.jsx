@@ -1,5 +1,3 @@
-import React from "react";
-import { HashLink as Link } from "react-router-hash-link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { GITHUB_URL, LINKEDIN_URL, HERO_IMAGE } from "../constants/index";
 import { useSpring, animated, config } from "react-spring";
@@ -67,9 +65,8 @@ export default function Home() {
 
             {/* CTA & Socials */}
             <div className="flex flex-col sm:flex-row items-center gap-6 lg:gap-8">
-              <Link
-                to="#projects"
-                smooth
+              <a
+                href="#projects"
                 className="group relative cursor-pointer font-mono font-medium"
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-neonCyan to-neonPurple rounded-full blur opacity-40 group-hover:opacity-100 transition duration-500"></div>
@@ -77,7 +74,7 @@ export default function Home() {
                   View Work
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                 </div>
-              </Link>
+              </a>
 
               <div className="flex items-center gap-4">
                 <SocialIcon href={GITHUB_URL} ariaLabel="GitHub Profile">
