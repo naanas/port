@@ -1,68 +1,121 @@
 import React from "react";
-import { useSpring, animated } from "react-spring";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaFileAlt,
-} from "react-icons/fa";
-import {
-  GITHUB_URL,
-  LINKEDIN_URL,
-  RESUME_URL,
-} from "../constants";
+import { Link } from "react-scroll";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { GITHUB_URL, LINKEDIN_URL, HERO_IMAGE } from "../constants/index";
+import { useSpring, animated, config } from "react-spring";
+
+const SocialIcon = ({ href, ariaLabel, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={ariaLabel}
+    className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-cyberGray border border-neonCyan/20 text-textMuted hover:text-neonCyan hover:border-neonCyan transition-all duration-300 shadow-sm hover:shadow-neon"
+  >
+    <div className="absolute inset-0 rounded-full bg-neonCyan/5 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></div>
+    <span className="relative z-10">{children}</span>
+  </a>
+);
 
 export default function Home() {
-  const logoSpring = useSpring({
-    from: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
+  const textSpring = useSpring({
+    from: { opacity: 0, transform: "translate3d(-40px, 0, 0)" },
     to: { opacity: 1, transform: "translate3d(0, 0px, 0)" },
+    delay: 100,
     config: { tension: 280, friction: 60 },
   });
 
-  const iconSpring = useSpring({
-    from: { opacity: 0, transform: "translate3d(0, 20px, 0)" },
+  const logoSpring = useSpring({
+    from: { opacity: 0, transform: "translate3d(0, 40px, 0)" },
     to: { opacity: 1, transform: "translate3d(0, 0px, 0)" },
-    config: { tension: 300, friction: 20 },
     delay: 300,
+    config: { tension: 280, friction: 60 },
   });
 
   return (
-    <div id="home" className="min-h-screen relative overflow-hidden flex flex-col justify-center px-6 lg:px-20 bg-lightDesert">
+    <section id="home" className="relative min-h-screen bg-cyberBlack flex items-center justify-center overflow-hidden pt-20">
 
-      {/* Optimized Background Elements (No heavy blur, simple soft radial gradients) */}
-      <div className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full opacity-30 pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(13,155,140,0.15) 0%, rgba(249,247,243,0) 70%)' }}></div>
-      <div className="absolute bottom-[-10%] left-[-5%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full opacity-30 pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(200,138,54,0.15) 0%, rgba(249,247,243,0) 70%)' }}></div>
+      {/* Abstract Background Elements */}
+      <div className="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] bg-neonPurple/10 rounded-full blur-[120px] pointer-events-none transform -translate-x-1/2 -translate-y-1/2 mix-blend-screen"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-neonCyan/10 rounded-full blur-[100px] pointer-events-none transform translate-x-1/2 translate-y-1/2 mix-blend-screen"></div>
 
-      <animated.div style={logoSpring} className="z-10 relative pt-20">
-        <p className="text-tealDesert font-mono tracking-widest mb-6 font-semibold uppercase text-sm md:text-base">
-          ● Full Stack Developer
-        </p>
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] pointer-events-none"></div>
 
-        {/* Modern Typography Layout */}
-        <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-9xl font-heading font-black text-darkDesert leading-[0.85] tracking-tighter">
-          ANNAS <br />
-          <span className="italic font-light text-gray-400/80 ml-[5%] md:ml-16">ANURAGA</span>
-        </h1>
+      <div className="container mx-auto px-6 lg:px-20 relative z-10 max-w-7xl w-full">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-16 lg:gap-8">
 
-        <div className="mt-12 flex flex-col md:flex-row justify-between items-start md:items-end w-full max-w-5xl gap-8">
-          <p className="text-lg md:text-xl text-gray-600 max-w-lg font-body leading-relaxed">
-            Crafting digital experiences that merge <strong className="text-darkDesert font-semibold">business logic</strong> with <strong className="text-darkDesert font-semibold">artistic interface</strong>. Passionate about performant and scalable web applications.
-          </p>
+          {/* Main Text Content */}
+          <animated.div style={textSpring} className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-neonCyan/30 bg-neonCyan/5 mb-8">
+              <span className="w-2 h-2 rounded-full bg-neonCyan animate-pulse"></span>
+              <span className="text-neonCyan font-mono text-xs uppercase tracking-widest font-bold">Open to work</span>
+            </div>
 
-          {/* Social Links with Modern Micro-interactions */}
-          <animated.div style={iconSpring} className="flex flex-wrap gap-4">
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
-              className="group flex items-center gap-2 border border-gray-300 px-6 py-3 rounded-full hover:border-darkDesert hover:bg-darkDesert hover:text-white transition-all duration-300 uppercase text-xs md:text-sm tracking-widest font-mono font-medium shadow-sm hover:shadow-md">
-              <FaGithub size={18} className="transition-transform group-hover:scale-110" /> GitHub
-            </a>
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"
-              className="group flex items-center gap-2 border border-gray-300 px-6 py-3 rounded-full hover:border-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-all duration-300 uppercase text-xs md:text-sm tracking-widest font-mono font-medium shadow-sm hover:shadow-md">
-              <FaLinkedin size={18} className="transition-transform group-hover:scale-110" /> LinkedIn
-            </a>
+            <h2 className="text-xl md:text-3xl font-mono text-textMuted mb-4">
+              Hello, I'm <span className="text-textMain font-bold">Annas</span>.
+            </h2>
+
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black text-textMain mb-8 leading-[1.1] tracking-tight">
+              Crafting <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonPurple filter drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">Digital</span> <br /> Experiences.
+            </h1>
+
+            <p className="text-lg md:text-xl text-textMuted font-body max-w-2xl mb-12 leading-relaxed">
+              Business Analyst & Frontend Developer specializing in translating complex requirements into elegant, high-performance web applications.
+            </p>
+
+            {/* CTA & Socials */}
+            <div className="flex flex-col sm:flex-row items-center gap-6 lg:gap-8">
+              <Link
+                to="projects"
+                smooth={true}
+                duration={500}
+                className="group relative cursor-pointer font-mono font-medium"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-neonCyan to-neonPurple rounded-full blur opacity-40 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-cyberBlack text-textMain px-8 py-4 rounded-full border border-gray-800 leading-none flex items-center gap-3 uppercase tracking-widest text-sm hover:bg-cyberGray transition-colors">
+                  View Work
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </div>
+              </Link>
+
+              <div className="flex items-center gap-4">
+                <SocialIcon href={GITHUB_URL} ariaLabel="GitHub Profile">
+                  <FaGithub size={22} />
+                </SocialIcon>
+                <SocialIcon href={LINKEDIN_URL} ariaLabel="LinkedIn Profile">
+                  <FaLinkedin size={22} />
+                </SocialIcon>
+              </div>
+            </div>
           </animated.div>
+
+          {/* Abstract Hero Image / Object */}
+          <animated.div style={logoSpring} className="w-full lg:w-2/5 flex justify-center lg:justify-end items-center relative">
+            {/* 
+                 For a cyber theme, abstract geometric shapes or tech-themed visuals work better
+                 than a standard portrait, but keeping the requested image here wrapped in a tech frame.
+               */}
+            <div className="relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96">
+              {/* Decorative rings */}
+              <div className="absolute inset-0 rounded-full border border-neonCyan/20 animate-[spin_10s_linear_infinite]"></div>
+              <div className="absolute inset-4 rounded-full border border-neonPurple/20 animate-[spin_15s_linear_infinite_reverse]"></div>
+              <div className="absolute inset-8 rounded-full border border-gray-800 border-dashed animate-[spin_20s_linear_infinite]"></div>
+
+              {/* Actually image container */}
+              <div className="absolute inset-12 rounded-full overflow-hidden border-2 border-cyberGray bg-cyberBlack flex items-center justify-center p-2 shadow-neon">
+                <img
+                  src={HERO_IMAGE}
+                  alt="Hero"
+                  className="w-full h-full object-cover rounded-full mix-blend-luminosity hover:mix-blend-normal opacity-80 hover:opacity-100 transition-all duration-500"
+                />
+              </div>
+            </div>
+          </animated.div>
+
         </div>
-      </animated.div>
-    </div>
+      </div>
+    </section>
   );
 }

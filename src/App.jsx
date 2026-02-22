@@ -22,9 +22,9 @@ function App() {
   return (
     <>
       <Analytics />
-      <ToastContainer />
+      <ToastContainer theme="dark" />
       <Router>
-        <div className="bg-lightDesert">
+        <div className="bg-cyberBlack min-h-screen text-textMain selection:bg-neonCyan selection:text-black">
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />

@@ -5,20 +5,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        darkDesert: '#1C1C1C', // Darkened for better contrast in modern UI
-        lightDesert: '#F9F7F3', // Lightened for cleaner look
-        goldDesert: '#C88A36',
-        tealDesert: '#0D9B8C',
+        cyberBlack: '#0A0A0B',    // Pure dark background
+        cyberGray: '#16181D',     // Elevated card background
+        neonCyan: '#00F0FF',      // Primary striking accent
+        neonPurple: '#8A2BE2',    // Secondary accent
+        textMain: '#F3F4F6',      // Primary crisp white text
+        textMuted: '#9CA3AF',     // Subtitle gray text
       },
       fontFamily: {
-        heading: ['"Playfair Display"', 'serif'],
-        body: ['"Space Grotesk"', 'sans-serif'],
+        heading: ['"Inter"', 'sans-serif'], // Swapped to a sharply modern sans-serif
+        body: ['"Space Grotesk"', 'sans-serif'], // Kept for tech feel
+        mono: ['"JetBrains Mono"', 'monospace'], // For tech accents
       },
       backgroundImage: {
-        'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%)',
+        'cyber-gradient': 'linear-gradient(135deg, rgba(22, 24, 29, 0.8) 0%, rgba(10, 10, 11, 0.9) 100%)',
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+        'neon': '0 0 15px rgba(0, 240, 255, 0.3)',
+        'neon-hover': '0 0 25px rgba(0, 240, 255, 0.6)',
       }
     },
   },

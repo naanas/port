@@ -1,21 +1,44 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-scroll";
+import { FaBars, FaTimes } from "react-icons/fa";
 
-const linkClasses = "block py-2 pr-4 pl-3 text-gray-700 hover:text-darkDesert font-medium transition-colors duration-300 lg:p-0 dark:text-gray-300 dark:hover:text-white relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-tealDesert after:transition-all hover:after:w-full";
-
-const NavLink = ({ to, onClick, children }) => (
-  <li>
-    <Link to={to} onClick={onClick} className={linkClasses} aria-current="page">
-      {children}
-    </Link>
-  </li>
+const MobileNavItem = ({ to, text, onClick }) => (
+  <Link
+    to={to}
+    smooth={true}
+    duration={500}
+    className="block w-full py-4 text-center text-xl font-heading font-medium text-textMain hover:text-neonCyan transition-all duration-300 relative group"
+    onClick={onClick}
+  >
+    <span className="relative z-10">{text}</span>
+    <span className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-neonCyan transition-all duration-300 group-hover:w-1/4 group-hover:-translate-x-1/2"></span>
+  </Link>
 );
 
-export default function NavBar() {
-  const [isOpen, setIsOpen] = useState(false);
+const NavItem = ({ to, text }) => (
+  <Link
+    to={to}
+    smooth={true}
+    duration={500}
+    className="px-4 py-2 text-sm font-mono tracking-wider uppercase text-textMuted hover:text-neonCyan cursor-pointer transition-colors duration-300 relative group"
+  >
+    {text}
+    <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-neonCyan transition-all duration-300 group-hover:w-3/4 group-hover:-translate-x-1/2 shadow-neon"></span>
+  </Link>
+);
+
+const NavBar = () => {
+  const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const toggleOpen = useCallback(() => setIsOpen(prev => !prev), []);
+  const links = [
+    { id: 1, link: "home", text: "Home" },
+    { id: 2, link: "about", text: "About" },
+    { id: 3, link: "projects", text: "Projects" },
+    { id: 4, link: "skills", text: "Skills" },
+    { id: 5, link: "experience", text: "Experience" },
+    { id: 6, link: "contact-me", text: "Contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,45 +49,76 @@ export default function NavBar() {
   }, []);
 
   return (
-    <header>
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-md bg-white/70 border-b border-gray-200/50 shadow-glass' : 'bg-transparent'} px-4 lg:px-6 py-4`}>
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex items-center gap-2 group">
-            {/* Text Logo instead of missing img */}
-            <span className="self-center text-2xl font-heading font-bold text-darkDesert group-hover:text-tealDesert transition-colors">
-              AA.
-            </span>
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
+          ? 'backdrop-blur-xl bg-cyberBlack/80 border-b border-cyberGray shadow-lg'
+          : 'bg-transparent'
+        } px-4 lg:px-6 py-4`}
+    >
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* Logo */}
+        <div className="flex items-center gap-3 relative z-50">
+          <Link to="home" smooth={true} duration={500} className="cursor-pointer group flex items-center gap-2">
+            <div className="w-10 h-10 rounded-lg bg-cyberGray border border-neonCyan/30 flex items-center justify-center group-hover:border-neonCyan transition-colors duration-300 group-hover:shadow-neon">
+              <span className="font-heading font-black text-xl text-textMain tracking-tighter">AA<span className="text-neonCyan">.</span></span>
+            </div>
           </Link>
-          <div className="flex items-center lg:order-2">
-            <button
-              onClick={toggleOpen}
-              type="button"
-              className="inline-flex items-center p-2 text-sm rounded-lg lg:hidden hover:bg-gray-100/50 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors"
-              aria-expanded={isOpen}
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg className="w-6 h-6 text-darkDesert" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-          <div className={`${isOpen ? "block bg-white/95 backdrop-blur-md mt-4 p-4 rounded-2xl shadow-lg lg:bg-transparent lg:shadow-none lg:p-0 lg:mt-0" : "hidden"} justify-between items-center w-full lg:flex lg:w-auto lg:order-1 transition-all`}>
-            <ul className="flex flex-col mt-4 font-body lg:flex-row lg:space-x-8 lg:mt-0 gap-4 lg:gap-0">
-              <NavLink to="/" onClick={toggleOpen}>Home</NavLink>
-              <NavLink to="/about" onClick={toggleOpen}>About</NavLink>
-              <NavLink to="/projects" onClick={toggleOpen}>Projects</NavLink>
-              <NavLink to="/skills" onClick={toggleOpen}>Skills</NavLink>
-              <NavLink to="/experience" onClick={toggleOpen}>Experience</NavLink>
-              <NavLink to="/education" onClick={toggleOpen}>Education</NavLink>
-              <NavLink to="/contact" onClick={toggleOpen}>Contact</NavLink>
-            </ul>
-          </div>
         </div>
-      </nav>
-    </header>
+
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex items-center gap-2">
+          {links.map(({ id, link, text }) => (
+            <li key={id}>
+              <NavItem to={link} text={text} />
+            </li>
+          ))}
+          <li className="ml-4">
+            <a
+              href="/Anas_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 rounded-full border border-neonCyan text-neonCyan font-mono text-sm tracking-wider hover:bg-neonCyan/10 transition-all duration-300 shadow-neon"
+            >
+              Resume
+            </a>
+          </li>
+        </ul>
+
+        {/* Mobile Navigation Toggle */}
+        <div
+          onClick={() => setNav(!nav)}
+          className="cursor-pointer pr-2 z-50 text-textMain md:hidden p-2 rounded-full hover:bg-cyberGray transition-colors"
+        >
+          {nav ? <FaTimes size={24} className="text-neonCyan" /> : <FaBars size={24} />}
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        <div
+          className={`fixed inset-0 bg-cyberBlack/95 backdrop-blur-3xl transition-all duration-500 ease-in-out z-40 flex flex-col items-center justify-center ${nav ? 'opacity-100 visible' : 'opacity-0 invisible'
+            }`}
+        >
+          <ul className="w-full px-6 flex flex-col items-center gap-2">
+            {links.map(({ id, link, text }) => (
+              <li key={id} className="w-full">
+                <MobileNavItem to={link} text={text} onClick={() => setNav(false)} />
+              </li>
+            ))}
+            <li className="w-full mt-8">
+              <a
+                href="/Anas_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setNav(false)}
+                className="block w-full max-w-xs mx-auto text-center px-8 py-4 rounded-full border-2 border-neonCyan text-neonCyan font-mono text-sm tracking-widest uppercase hover:bg-neonCyan/10 transition-colors shadow-neon"
+              >
+                Resume
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
-}
+};
+
+export default NavBar;
